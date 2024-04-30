@@ -7,35 +7,49 @@ using System.Threading.Tasks;
 
 namespace Dungeon
 {
-   
+
     public class DiceRolls
     {
-       private Random myDie = new Random();
-        public int D6()
+
+        public static int D6()
         {
-           return myDie.Next(1, 6 + 1);
+            Random myDie = new();
+            int roll = myDie.Next(1, 6 + 1);
+            return roll;
         }
-        public int D4()
+        public static int D4()
         {
-            return myDie.Next(1, 4 + 1);
+            Random myDie = new();
+            int roll = myDie.Next(1, 4 + 1);
+            return roll;
         }
-        public int D10()
+        public static int D10()
         {
-            return myDie.Next(1, 10 + 1);
+            Random myDie = new();
+            int roll = myDie.Next(1, 10 + 1);
+            return roll;
         }
-        public int D20()
+        public static int D20()
         {
-            return myDie.Next(1, 20 + 1);
+            Random myDie = new();
+            int roll = myDie.Next(1, 20 + 1);
+            return roll;
         }
-        public int D100()
+        public static int D100()
         {
-            return myDie.Next(1, 100 + 1);
-        }
-        public int TwoD6()
-        {
-            return myDie.Next(1, 6 + 1);
+            Random myDie = new();
+            int roll = myDie.Next(1, 100 + 1);
+            return roll;
         }
 
+        public static int TwoD6()
+        {
+            Random myDie = new();
+            int roll = myDie.Next(1, 6 + 1);
+            int roll2 = myDie.Next(1, 6 + 1);
+            int total = roll + roll2;
+            return total;
 
+        }
     }
 }

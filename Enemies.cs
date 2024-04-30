@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -9,12 +10,16 @@ namespace Dungeon
 {
     public class Enemies
     {
-        public static void Kobold()
+        public static int[] Kobold(int[] kobold)
         {
-            //DiceRolls.D6() = new(DiceRolls.D6);
-            //int die1 = DiceRolls.D6();
-            //int die2;
-            ////int hitPoints = 2d6 - 2;
+            int hitPointsPack = (DiceRolls.TwoD6() -2);
+            int armorClassPack = 12;
+            int weaponDamagePack = (DiceRolls.D4() + 2);
+            
+            int[] koboldPack = new int[3] { hitPointsPack, armorClassPack, weaponDamagePack };
+            
+
+            return koboldPack;
         }
     }
 }

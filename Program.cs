@@ -79,17 +79,27 @@ void FirstEncounter()
     Console.WriteLine("*******************************");
 
     string temp = Console.ReadLine();
-    temp.ToLower();
+   
+
     switch(temp)
     {
         case "a":
               Print("You lunge at the foe");
+            Console.ReadKey();
+
+            FirstEncounter();
             break;
         case "d":
             Print("You cautiously approach the enemy swiping cleanly as it closes the distance");
+            Console.ReadKey();
+
+            FirstEncounter();
             break;
         case "i":
             Print("You scrounge your knapsack for anything that could turn the tide of battle");
+            Console.ReadKey();
+
+            FirstEncounter();
             break;
         case "r":
             Print("You try to evade the foe and live to see another day");
@@ -98,7 +108,14 @@ void FirstEncounter()
             { Print("You fail to evade and are slashed from the back taking" + 5 + "!"); }
                 if(roll == 1)
             { Print("You evade the blow of the blade and have escaped the fight!"); }
-                break;
+            Console.ReadKey();
 
+            FirstEncounter();
+                break;
+        default: Print(temp + " is not a supported command");
+            Console.ReadKey();
+
+            FirstEncounter();
+            break;
     }
 }
