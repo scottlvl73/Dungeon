@@ -10,16 +10,24 @@ namespace Dungeon
 {
     public class Enemies
     {
-        public static int[] Kobold(int[] kobold)
+        public static List<string> Kobold()
         {
+
             int hitPointsPack = (DiceRolls.TwoD6() -2);
-            int armorClassPack = 12;
-            int weaponDamagePack = (DiceRolls.D4() + 2);
+            if(hitPointsPack < 0) { hitPointsPack = 1; }
+            string hitPoints = Convert.ToString(hitPointsPack);
             
-            int[] koboldPack = new int[3] { hitPointsPack, armorClassPack, weaponDamagePack };
+            int armorClassPack = 12;
+            string armorClass = Convert.ToString(armorClassPack);
+            
+            int weaponDamagePack = (DiceRolls.D4() + 2);
+            string weaponDamage = Convert.ToString(weaponDamagePack);
+            
+         List<string> enemy = [hitPoints, armorClass, weaponDamage];
+
             
 
-            return koboldPack;
+            return enemy;
         }
     }
 }
