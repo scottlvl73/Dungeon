@@ -40,7 +40,7 @@ internal class Program
             Print("What is your name Adventurer?");
             player.playerName = Console.ReadLine();
 
-            if (player.playerName == "")
+            if (player.playerName == "" || player.playerName == null)
             {
                 Print("You don't even remember your name? This will be a harsh adventure.");
                 player.playerName = "Dude";

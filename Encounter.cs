@@ -31,53 +31,57 @@ namespace Dungeon
                 Random rand = new();
                 Console.Clear();
 
-                Console.WriteLine("**********************************************");
-                Console.WriteLine("**********************************************");
-                Console.WriteLine("**(A)ttack***(I)nventory**********************");
-                Console.WriteLine("**(D)efend***(R)un****************************");
-                Console.WriteLine("**********************************************");
+                Console.WriteLine("***************************************************");
+                Console.WriteLine("***************************************************");
+                Console.WriteLine("**(A)ttack***(I)nventory***************************");
+                Console.WriteLine("**(D)efend***(R)un*********************************");
+                Console.WriteLine("***************************************************");
                 Console.WriteLine("***HitPoints: "+ player.playerHealth + " *******Enemy Health: " + enemyHitPoints + " *********************");
 
                 string temp = Console.ReadLine();
-
+           
 
                 switch (temp)
                 {
                     case "a":
-                        Print("You lunge at the foe");
-                        enemyHitPoints = - 2;
+                        Print("You lunge at the foe dealing " +player.playerDamage + " damage to the snarling beast");
+                        enemyHitPoints = enemyHitPoints - 2;
                         Console.ReadKey();
 
-                  
                         break;
+
+
                     case "d":
                         Print("You cautiously approach the enemy swiping cleanly as it closes the distance");
                         enemyHitPoints--;
                         Console.ReadKey();
-
                       
-                        break;
+                     break;
+
                     case "i":
                         Print("You scrounge your knapsack for anything that could turn the tide of battle");
                         Print("I have not figured out how to do this yet, Dev's please fix");
                         Console.ReadKey();
-
                      
                         break;
+
                     case "r":
                         Print("You try to evade the foe and live to see another day");
                         var roll = rand.Next(0, 2);
                         if (roll == 0)
+                            // Implement Armor Class please
                         { Print("You fail to evade and are slashed from the back taking 1 damage!"); }
                         player.playerHealth--;
                         if (roll == 1)
                         { Print("You evade the blow of the blade and have escaped the fight!"); }
                         Console.ReadKey();
+
                         break;
 
                     default:
                         Print(temp + " is not a supported command");
                         Console.ReadKey();
+
                         break;
                 }
             }
