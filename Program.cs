@@ -1,10 +1,11 @@
 ﻿using Dungeon;
+using System.Media;
 using System.Runtime;
 using System.Xml.Xsl;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
         Player player = new();
         Console.ForegroundColor = ConsoleColor.Green;
@@ -54,17 +55,13 @@ internal class Program
 
         void Introduction()
         {
-            player.playerLevel = 1;
-            player.playerDamage = 1;
-            player.playerArmorClass = 1;
-            player.playerHealth = 7;
             Print(player.playerName + " you were born in the slums of Pearlgate and always dreamed of the day you could escape");
             Print("You found your chance last week, but this week have found yourself wandering blackened halls wishing you were");
             Print("still hauling fish off the wool docks for the Fishmongers.");
             Print("You turn the corner and come face to face with a kobold, it's teeth gnawing at the chance for a warm meal");
         }
 
-        void Print(string text, int speed = 40)
+        void Print(string text, int speed = 10)
         {
             foreach (char c in text)
             {
