@@ -38,25 +38,25 @@ namespace Dungeon
                 Console.WriteLine("***************************************************");
                 Console.WriteLine("***HitPoints: " + player.playerHealth + " *******Enemy Health: " + enemyHitPoints + " ****************");
 
-                string temp = Console.ReadLine();
+                string? temp = Console.ReadLine();
 
 
                 switch (temp)
                 {
-                    case "a":
+                    case "a": 
                         int roll = DiceRolls.D20();
                         if (roll >= enemyArmorClass)
                         {
                             Print("You lunge at the foe dealing " + player.playerDamage + " damage to the snarling beast");
                             enemyHitPoints -= player.playerDamage;
-                            Debug.WriteLine("Player Success: D20 rolled " + roll + " enemy Armor class was " + enemyArmorClass);
+                            Console.WriteLine("Player Success: D20 rolled " + roll + " enemy Armor class was " + enemyArmorClass);
 
                             Console.ReadKey();
                         }
                         else
                         {
                             Print("The enemy dodges the blow and prepares an assault of it's own!");
-                            Debug.WriteLine("Player Failed Condition: D20 rolled " + roll + " enemy Armor class was " + enemyArmorClass);
+                            Console.WriteLine("Player Failed Condition: D20 rolled " + roll + " enemy Armor class was " + enemyArmorClass);
                             Console.ReadKey();
                         }
 
@@ -97,20 +97,26 @@ namespace Dungeon
 
                         Print("The enemy recoils and returns a slice from it's dagger dealing " + enemyWeaponDamage + "damage!");
                         player.playerHealth -= enemyWeaponDamage;
-                        Debug.WriteLine("Enemy Success: D20 rolled " + roll + " player Armor class was" + player.armorClass);
+                        Console.WriteLine("Enemy Success: D20 rolled " + roll + " player Armor class was" + player.armorClass);
 
                         Console.ReadKey();
                     }
                     else
                     {
                         Print("You deftly dodge the blow and ready your sword");
-                        Debug.WriteLine("Enemy Failed Condition: D20 rolled " + roll + " player Armor class was " + player.armorClass);
+                        Console.WriteLine("Enemy Failed Condition: D20 rolled " + roll + " player Armor class was " + player.armorClass);
 
                         Console.ReadKey();
+                       
+
+                    }
+                    if (player.playerHealth <= 0)
+                    {
+                        Encounter.GameOver();
                     }
                 }
             }
-
+            
             player.gold += Convert.ToInt32(kobold[3]);
             player.experience += Convert.ToInt32(kobold[4]);
             Print("You defeated the Kobold and won your freedom");
@@ -121,13 +127,25 @@ namespace Dungeon
 
             
         }
+
+        static void GameOver()
+        {
+            Console.WriteLine("**********************");
+            Console.WriteLine("**********************");
+            Console.WriteLine("**********************");
+            Console.WriteLine("You Died!");
+            Console.WriteLine("Do you want to start over? too bad, I haven't coded that in yet.");
+            Console.ReadKey();
+            Environment.Exit(0);
+        }
+
     }
+  
 }
 // runaway method
 //Print("You try to evade the foe and live to see another day");
 //var roll = rand.Next(0, 2);
 //if (roll == 0)
-//    // Implement Armor Class please
 //{ Print("You fail to evade and are slashed from the back taking 1 damage!"); }
 //player.playerHealth--;
 //if (roll == 1)

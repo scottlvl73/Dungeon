@@ -13,6 +13,7 @@ internal class Program
         Start();
         Introduction();
         Encounter.FirstEncounter(player);
+        Room.RoomTutorial(player);
 
 
 
@@ -48,7 +49,7 @@ internal class Program
             }
             else
             {
-                Print("Go forth " + player.playerName + "! You can defeat the darkness!");
+                Print("Go forth " + player.playerName + "! You can defeat the <insert boss here>!");
             }
 
         }
@@ -61,7 +62,7 @@ internal class Program
             Print("You turn the corner and come face to face with a kobold, it's teeth gnawing at the chance for a warm meal");
         }
 
-        void Print(string text, int speed = 10)
+        void Print(string text, int speed = 40)
         {
             foreach (char c in text)
             {
@@ -70,5 +71,8 @@ internal class Program
             }
             Console.WriteLine();
         }
+        
+        
     }
+  
 }
