@@ -62,7 +62,7 @@ internal class Program
             Print("You turn the corner and come face to face with a kobold, it's teeth gnawing at the chance for a warm meal");
         }
 
-        void Print(string text, int speed = 40)
+        void Print(string text, int speed = 5)
         {
             foreach (char c in text)
             {

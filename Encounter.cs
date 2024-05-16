@@ -9,7 +9,7 @@ namespace Dungeon
 {
     public class Encounter
     {
-        static void Print(string text, int speed = 40)
+        static void Print(string text, int speed = 5)
         {
             foreach (char c in text)
             {

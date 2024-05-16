@@ -9,17 +9,16 @@ namespace Dungeon
 {
     public class Room
     {
+       private static bool[] roomArray = new bool[19];
+    
+
         //What does a room need? exits, interactables, examine,
-       public static void RoomTutorial(Player player)
+        public static void RoomTutorial(Player player)
         {
+            Room.roomArray[0] = true;
+            Room.roomArray[1] = true;
             Console.Clear();
-            Console.WriteLine("            Catacombs Level 1                        ");
-            Console.WriteLine("*****************************************************");
-            Console.WriteLine("**(N)orth*************| |***********(S)outh**********");
-            Console.WriteLine("**********************|x|****************************");
-            Console.WriteLine("**********************| |****************************");
-            Console.WriteLine("***HitPoints: " + player.playerHealth + " **********************");
-          
+            Maps.CatacombsMap(player, Room.roomArray);          
             Print("As the beast falls to the ground, you start to scan your surroundings, you are in");
             Print("a large dark cooridor with two directions to progress. Either north or back the way you came.");
             string? temp = Console.ReadLine();
@@ -44,13 +43,9 @@ namespace Dungeon
 
         static void SkullRoom(Player player)
         {
+            Room.roomArray[2] = true;
             Console.Clear();
-            Console.WriteLine("            Catacombs Level 1                        ");
-            Console.WriteLine("*****************************************************");
-            Console.WriteLine("**(N)orth*************|x|***********(S)outh**********");
-            Console.WriteLine("**********************| |****************************");
-            Console.WriteLine("**********************| |****************************");
-            Console.WriteLine("***HitPoints: " + player.playerHealth + " *******************************");
+            Maps.CatacombsMap(player, Room.roomArray);
             Console.ReadKey ();
             RoomTutorialSecond(player);
         }
@@ -58,12 +53,8 @@ namespace Dungeon
         {
 
             Console.Clear();
-            Console.WriteLine("            Catacombs Level 1                      ");
-            Console.WriteLine("***************************************************");
-            Console.WriteLine("**(N)orth*************| |****************************");
-            Console.WriteLine("**********************| |***************************");
-            Console.WriteLine("**********************|x|****************************");
-            Console.WriteLine("***HitPoints: " + player.playerHealth + " ******************************");
+            Maps.CatacombsMap(player, Room.roomArray);
+
             Print("There is nothing of interest");
             string? temp = Console.ReadLine();
             if (temp.ToLower() == "north"  | temp.ToLower() == "n")
@@ -81,12 +72,8 @@ namespace Dungeon
         static void RoomTutorialSecond(Player player)
         {
             Console.Clear();
-            Console.WriteLine("            Catacombs Level 1                        ");
-            Console.WriteLine("*****************************************************");
-            Console.WriteLine("**(N)orth*************| |***********(S)outh**********");
-            Console.WriteLine("**********************|x|****************************");
-            Console.WriteLine("**********************| |****************************");
-            Console.WriteLine("***HitPoints: " + player.playerHealth + " ******************************");
+            Maps.CatacombsMap(player, Room.roomArray);
+
             Print("You return to where the kobolds corpse lies");
             string? temp = Console.ReadLine ();
             if (temp.ToLower() == "n" || temp.ToLower() == "north")
@@ -104,7 +91,7 @@ namespace Dungeon
 
 
 
-        static void Print(string text, int speed = 40)
+        static void Print(string text, int speed = 5)
         {
             foreach (char c in text)
             {
