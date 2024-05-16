@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dungeon.Tests\**" />
+    <EmbeddedResource Remove="Dungeon.Tests\**" />
+    <None Remove="Dungeon.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Windows.Extensions" Version="8.0.0" />
   </ItemGroup>
 

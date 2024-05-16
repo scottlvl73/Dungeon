@@ -4,7 +4,16 @@ using Xunit.Abstractions;
 
 namespace Dungeon.Tests
 {
+    public class MapTest(ITestOutputHelper output)
+    {
+        private readonly ITestOutputHelper output = output;
 
+        [Fact]
+        public void CatacombMapTest()
+        {
+            Maps.CatacombsMap(player, roomArray);
+        }
+    }
 
     public class DiceRollTest(ITestOutputHelper output)
     {
