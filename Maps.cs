@@ -36,7 +36,7 @@ namespace Dungeon
             Console.WriteLine($"*******************|{stringArray[8]}|x|{stringArray[1]}|x|{stringArray[16]}|{stringArray[17]}|*******************");
             Console.WriteLine($"*******************|x|x|{stringArray[0]}|x|x|{stringArray[18]}|*******************");
             Console.WriteLine($"******************HitPoints: " + player.playerHealth + " *******************");
-            Console.WriteLine($"*******{commands[0]} || {commands[1]} || {commands[2]} || {commands[3]}******");
+            Console.WriteLine($"***Available Commands: {commands[0]} || {commands[1]} || {commands[2]} || {commands[3]}******");
         }
 
 

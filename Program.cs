@@ -10,6 +10,7 @@ internal class Program
         Player player = new();
         Console.ForegroundColor = ConsoleColor.Green;
         Console.BackgroundColor = ConsoleColor.Black;
+        player.Inventory.Add(new InventoryItem("Necklace",1, "A necklace you awoke with", "It has no effect"));
         Start();
         Introduction();
         Encounter.FirstEncounter(player);

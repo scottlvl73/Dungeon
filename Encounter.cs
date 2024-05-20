@@ -72,7 +72,7 @@ namespace Dungeon
 
                     case "i":
                         Print("You scrounge your knapsack for anything that could turn the tide of battle");
-                        Print("I have not figured out how to do this yet, Dev's please fix");
+                        player.AccessInventory();
                         Console.ReadKey();
 
                         break;
