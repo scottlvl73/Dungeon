@@ -38,10 +38,10 @@ namespace Dungeon
                 Console.WriteLine("***************************************************");
                 Console.WriteLine("***HitPoints: " + player.playerHealth + " *******Enemy Health: " + enemyHitPoints + " ****************");
 
-                string? temp = Console.ReadLine();
+                string temp = Console.ReadLine();
 
 
-                switch (temp)
+                switch (temp.ToLower())
                 {
                     case "a": 
                         int roll = DiceRolls.D20();
