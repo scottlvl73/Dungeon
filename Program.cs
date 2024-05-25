@@ -10,7 +10,6 @@ internal class Program
         Player player = new();
         Console.ForegroundColor = ConsoleColor.Green;
         Console.BackgroundColor = ConsoleColor.Black;
-        Console.SetWindowSize(800,800);
         player.Inventory.Add(InventoryItem.necklace);
         Start();
         Introduction();

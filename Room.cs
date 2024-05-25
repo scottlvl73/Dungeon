@@ -14,7 +14,7 @@ namespace Dungeon
         private static bool roomswitch = new();
        private static readonly bool[] roomArray = new bool[19];
        private static int playerPosition = new();
-
+        private static bool takenSkull = false; 
        private static readonly string[] commands = [" ", " ", " ", " "];
        
         //What does a room need? exits, interactables, examine,
@@ -37,13 +37,13 @@ namespace Dungeon
             if (temp.Equals("n", StringComparison.CurrentCultureIgnoreCase) || temp.Equals("north", StringComparison.CurrentCultureIgnoreCase))
             {
                 Console.WriteLine("You move north and enter the next room");
-                Console.ReadKey();
+                Console.Read();
                 SkullRoom(player);
             }
             else if(temp.Equals("s", StringComparison.CurrentCultureIgnoreCase) || temp.Equals("south", StringComparison.CurrentCultureIgnoreCase))
             {
                 Console.WriteLine("You head back the way you came to see if anything is interesting");
-                Console.ReadKey();
+                Console.Read();
                 BackToStartRoom(player);
             } else
             {
@@ -58,15 +58,24 @@ namespace Dungeon
 
         static void SkullRoom(Player player)
         {
+           
             Array.Clear(commands, 0 , commands.Length);
             commands[0] = "North";
+            commands[3] = "West";
             commands[2] = "South";
+            if (player.Inventory.Contains(InventoryItem.skull))
+            {
+                commands[1] = " ";
+            }
+            else
+            {
             commands[1] = "Take Skull";
+            }
             roomArray[2] = true;
             playerPosition = 2;
             Console.Clear();
             Maps.CatacombsMap(player, roomArray, playerPosition, commands);
-            if (player.Inventory.Contains(InventoryItem.skull))
+            if (takenSkull == true)
             {
             Print("The room contains large overhangs and in the corner was a ornate skull, like it was a ritual object of some sort. \n Now it rests in your backpack though");
             } 
@@ -80,28 +89,39 @@ namespace Dungeon
                 case "n" :
                 case "north": 
                 Print("You head north");
-                Console.ReadKey();
+                Console.Read();
                 RoomAltar(player);
                 break;
+
+                case "west" :
+                case "w":
+                    Print("You head west");
+                    Room.RoomChance(player);
+                    break;
 
                 case "s":
                 case "south":
                 Print("You head south");
-                Console.ReadKey();
+                Console.Read();
                 RoomTutorialSecond(player);
                 break;
 
                 case "take":
                 case "take skull":
+                if(takenSkull == false)
+                {
                 Print("You stuff the skull into your backpack, maybe it will be useful later");
-                //var skull = new InventoryItem(name: "Skull", quantity: 1, description: "A weathered skull", effect: "Unknown");
                 player.Inventory.Add(InventoryItem.skull);
+                takenSkull = true;}
+                else {
+                    Print("You already have it");
+                }
                 SkullRoom(player);
                 break;
 
                 case "i":
                 case "inventory":
-                player.AccessInventory();
+                player.AccessInventory(player);
                 SkullRoom(player);
                 break;
 
@@ -177,7 +197,10 @@ namespace Dungeon
             //Defines what can be done in each room.
             commands[0] = "South";
             commands[1] = "Use";
-            commands[2] = "";
+            if (roomswitch == true)
+                commands[2] = "East";
+                else 
+                commands[2] = "";
             commands[3] = "";
             Console.Clear();
             //Set's player;s location on map
@@ -218,7 +241,7 @@ namespace Dungeon
                 { 
                    Print("You don't have anything that fits");     
                 }
-                    Console.ReadKey();
+                    Console.Read();
                     RoomAltar(player);
                     break;
                 case "east":
@@ -232,7 +255,7 @@ namespace Dungeon
                     break;
                 case "i":
                 case "inventory":
-                    player.AccessInventory();
+                    player.AccessInventory(player);
                     RoomAltar(player);
                     break;
                 default:
@@ -246,10 +269,12 @@ namespace Dungeon
     {
         Array.Clear(commands, 0 , commands.Length);
             //Defines what can be done in each room.
+            
             commands[0] = "(W)est";
             commands[1] = "(O)pen";
             commands[2] = "";
             commands[3] = "";
+           
             Console.Clear();
             //Set's player's location on map
             playerPosition = 4;
@@ -273,7 +298,7 @@ namespace Dungeon
                    
                     player.gold += 300;
                     player.Inventory.Add(InventoryItem.potion);
-                    player.Inventory.Add(InventoryItem.potion);
+                    
                     chestOpened1 = true;
                 } else {
                     Print("The chest has already been looted");
@@ -283,12 +308,55 @@ namespace Dungeon
 
                 case "i":
                 case "inventory":
-                    player.AccessInventory();
+                    player.AccessInventory(player);
                     RoomSecret(player);
                     break;
                 default:
                     Print("I don't understand");
                     RoomSecret(player);
+                break;
+            }      
+    }
+      static void RoomChance (Player player)
+    {
+        Array.Clear(commands, 0 , commands.Length);
+            //Defines what can be done in each room.
+            commands[0] = "East";
+            commands[1] = "West";
+            commands[2] = "";
+            commands[3] = "";
+            Console.Clear();
+            //Set's player's location on map
+            playerPosition = 5;
+            //Room array flags explored room
+             roomArray[5] = true;
+            //Calls Mapping
+            Maps.CatacombsMap(player, roomArray, playerPosition, commands);
+            //Room Description
+            Print("Going west there is a dank smell in the air from the necrosis setting in.");
+            Print("You really do not like this place.");
+            Encounter.ChanceEncounter(player);
+            //
+            string temp = Console.ReadLine();
+            switch (temp.ToLower()) {
+                case "east":
+                case "e":
+                 Print("You head to the east");
+                // Room.
+                    break;
+                case "west":
+                case "w":
+                    Print("You head back to the west");
+                    Room.SkullRoom(player);
+                    break;
+                case "i":
+                case "inventory":
+                    player.AccessInventory(player);
+                    Room.RoomChance(player);
+                    break;
+                default:
+                    Print("I don't understand");
+                    Room.RoomChance(player);
                 break;
             }      
     }
@@ -300,6 +368,7 @@ namespace Dungeon
             commands[1] = "";
             commands[2] = "";
             commands[3] = "";
+            
             Console.Clear();
             //Set's player's location on map
             playerPosition = 0;
@@ -312,11 +381,13 @@ namespace Dungeon
             //
             string temp = Console.ReadLine();
             switch (temp.ToLower()) {
+                //Commands
                 case "":
                     break;
+                //Menus
                 case "i":
                 case "inventory":
-                    player.AccessInventory();
+                    player.AccessInventory(player);
                    // Room(player);
                     break;
                 default:

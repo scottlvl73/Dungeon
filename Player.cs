@@ -11,34 +11,53 @@ namespace Dungeon
         public string playerName = "";
         public int playerHealth = 10;
         public int MaxHealth = 10;
-        public int playerLevel = 1;
         public int playerDamage = DiceRolls.D4() + 3;
         public int armorClass = 16;
         public int gold;
         public int experience;
+        public int experienceMax = 100;
+        public int playerLevel = 1;
 
         public List<InventoryItem> Inventory = [];
 
-        public void AccessInventory()
+        public void AccessInventory(Player player)
         {
             foreach (var item in Inventory){
                 Console.WriteLine(item.Name);
                 Console.WriteLine(item.Description);
-                Console.WriteLine(item.Effect);
+                Console.WriteLine(item.EffectString);
                 Console.WriteLine($"You have: {item.Quantity}");
                 
             }
             Console.WriteLine("Do you want to use a potion? (Y/N)");
-                if (Console.ReadLine() == "Y"){
-                    UsePotion();
+            string playerInput = Console.ReadLine().ToLower();
+                //if the player tries to use a potion and has one
+                if (playerInput == "y" && player.Inventory.Contains(InventoryItem.potion)){
+                    player.Use(InventoryItem.potion);
+                //if inventory does not contain a potion
+                }else if (playerInput == "y" && !player.Inventory.Contains(InventoryItem.potion)){
+                    Console.WriteLine("You do not have a potion");
 
+                }else if(playerInput == "n"){
+                    
                 }
-            Console.ReadKey();
+                 else {
+                    Console.WriteLine("I don't understand");
+                }
+            Console.Read();
         }
-        private void UsePotion(){
-            Inventory.Remove(InventoryItem.potion);
-            playerHealth = MaxHealth;
+         public void Use(InventoryItem item)
+    {
+        if (Inventory.Contains(item))
+        {
+            //Applies item effect
+            item.ApplyEffect(this);
+            //Removes from Inventory
+            Inventory.Remove(item);
         }
+        
+    } 
+       
     }
    
 }

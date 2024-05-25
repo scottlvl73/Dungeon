@@ -51,13 +51,13 @@ namespace Dungeon
                             enemyHitPoints -= player.playerDamage;
                             Console.WriteLine("Player Success: D20 rolled " + roll + " enemy Armor class was " + enemyArmorClass);
 
-                            Console.ReadKey();
+                            Console.Read();
                         }
                         else
                         {
                             Print("The enemy dodges the blow and prepares an assault of it's own!");
                             Console.WriteLine("Player Failed Condition: D20 rolled " + roll + " enemy Armor class was " + enemyArmorClass);
-                            Console.ReadKey();
+                            Console.Read();
                         }
 
                         break;
@@ -66,13 +66,13 @@ namespace Dungeon
                     case "d":
                         Print("You cautiously approach the enemy swiping cleanly as it closes the distance");
                         enemyHitPoints--;
-                        Console.ReadKey();
+                        Console.Read();
 
                         break;
 
                     case "i":
                         Print("You scrounge your knapsack for anything that could turn the tide of battle");
-                        player.AccessInventory();
+                        player.AccessInventory(player);
                         Console.ReadKey();
 
                         break;
@@ -84,7 +84,7 @@ namespace Dungeon
 
                     default:
                         Print(temp + " is not a supported command");
-                        Console.ReadKey();
+                        Console.Read();
 
                         break;
                 }
@@ -99,14 +99,14 @@ namespace Dungeon
                         player.playerHealth -= enemyWeaponDamage;
                         Console.WriteLine("Enemy Success: D20 rolled " + roll + " player Armor class was" + player.armorClass);
 
-                        Console.ReadKey();
+                        Console.Read();
                     }
                     else
                     {
                         Print("You deftly dodge the blow and ready your sword");
                         Console.WriteLine("Enemy Failed Condition: D20 rolled " + roll + " player Armor class was " + player.armorClass);
 
-                        Console.ReadKey();
+                        Console.Read();
                        
 
                     }
@@ -123,7 +123,7 @@ namespace Dungeon
             Print("You gained " + kobold[3] + " gold and " + kobold[4] + " experience");
 
 
-            Console.ReadKey();
+            Console.Read();
 
             
         }
@@ -135,10 +135,20 @@ namespace Dungeon
             Console.WriteLine("**********************");
             Console.WriteLine("You Died!");
             Console.WriteLine("Do you want to start over? too bad, I haven't coded that in yet.");
-            Console.ReadKey();
+            Console.Read();
             Environment.Exit(0);
         }
 
+    public static void ChanceEncounter(Player player){
+        var chanceRoll = DiceRolls.D20();
+        if (chanceRoll <= 8){
+            Print("An enemy appears!");
+
+        }
+        else{
+            Print("You proceed unhindered");
+        }
+    }
     }
   
 }
