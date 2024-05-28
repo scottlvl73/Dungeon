@@ -12,10 +12,10 @@ internal class Program
         Console.BackgroundColor = ConsoleColor.Black;
         player.Inventory.Add(InventoryItem.necklace);
         Start();
-        Introduction();
+        Introduction(); 
         Encounter.FirstEncounter(player);
         Room.RoomTutorial(player);
-
+       
 
 
         void Start()

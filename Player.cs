@@ -9,9 +9,9 @@ namespace Dungeon
     public class Player
     {
         public string playerName = "";
-        public int playerHealth = 10;
+        public int playerHealth = 50;
         public int MaxHealth = 10;
-        public int playerDamage = DiceRolls.D4() + 3;
+        public int playerDamage = DiceRolls.D4() + 20;
         public int armorClass = 16;
         public int gold;
         public int experience;

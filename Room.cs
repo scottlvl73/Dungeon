@@ -222,6 +222,7 @@ namespace Dungeon
             switch (temp.ToLower())
             {
                 case "south": 
+                case "s":
                     Print("You head back the way you came");
                     Console.ReadKey();
                     SkullRoom(player);
@@ -293,6 +294,7 @@ namespace Dungeon
                     break;
                 case "open chest":
                 case "o":
+                case "open":
                 if (chestOpened1 == false){
                     Print("You pry open the lock on the chest and find two healing potions and 300 gold");
                    
@@ -300,6 +302,7 @@ namespace Dungeon
                     player.Inventory.Add(InventoryItem.potion);
                     
                     chestOpened1 = true;
+                    Console.Read();
                 } else {
                     Print("The chest has already been looted");
                 }
@@ -315,6 +318,7 @@ namespace Dungeon
                     Print("I don't understand");
                     RoomSecret(player);
                 break;
+                
             }      
     }
       static void RoomChance (Player player)
@@ -323,7 +327,7 @@ namespace Dungeon
             //Defines what can be done in each room.
             commands[0] = "East";
             commands[1] = "West";
-            commands[2] = "";
+            commands[2] = "North";
             commands[3] = "";
             Console.Clear();
             //Set's player's location on map
@@ -341,13 +345,19 @@ namespace Dungeon
             switch (temp.ToLower()) {
                 case "east":
                 case "e":
-                 Print("You head to the east");
+                 Print("You head back to the east");
                 // Room.
+                Room.SkullRoom(player);
                     break;
                 case "west":
                 case "w":
-                    Print("You head back to the west");
-                    Room.SkullRoom(player);
+                    Print("You head to the west");
+                  //  Room.SkullRoom(player);
+                    break;
+                case "n":
+                case "north":
+                    Print("You head north");
+                    Room.RoomMiniBoss(player);
                     break;
                 case "i":
                 case "inventory":
@@ -396,7 +406,60 @@ namespace Dungeon
                 break;
             }      
     }
+static void RoomMiniBoss (Player player)
+    {
+        Array.Clear(commands, 0 , commands.Length);
+            //Defines what can be done in each room.
+            commands[0] = "(S)outh";
+            commands[1] = "(E)xamine";
+            commands[2] = "";
+            commands[3] = "";
+            Print("North of this room is a library. This seems seriously out of place in the catacombs." + 
+            " The smell still exists, but the furnishings are suspect. The walls are lined with bookcases filled with books.");
+            
+            // When the player reaches to examine a title, the necromancer appears.
+            //(Lvl 1 mini boss) 
+            //After the battle there is a book on the lectern that catches your eye, you can take it. There is a key inside.
+            Console.Clear();
+            //Set's player's location on map
+            playerPosition = 6;
+            //Room array flags explored room
+             roomArray[6] = true;
+            //Calls Mapping
+            Maps.CatacombsMap(player, roomArray, playerPosition, commands);
+            //Room Description
+            //
+            string temp = Console.ReadLine();
+            switch (temp.ToLower()) {
+                //Commands
+                case "s":
+                case "south":
+                Print("You head back south the way you came");
+                Room.RoomChance(player);
+                break;
 
+                case "e":
+                case "examine":
+                Print("When you reach to examine the book on the lectern, you hear a voice " + 
+                "Welcome to my Archives. Unfortunately, you will not have the time to take in the sights.");
+                Console.Read();
+                Encounter.MiniBoss(player);
+                RoomMiniBoss(player);
+                break;
+
+
+                //Menus
+                case "i":
+                case "inventory":
+                    player.AccessInventory(player);
+                    Room.RoomMiniBoss(player);
+                    break;
+                default:
+                    Print("I don't understand");
+                   RoomMiniBoss(player);
+                break;
+            }      
+    }
 
         static void Print(string text, int speed = 5)
         {
